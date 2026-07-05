@@ -1,12 +1,3 @@
----
-title: Handwriting Generator
-emoji: 🐢
-colorFrom: yellow
-colorTo: gray
-sdk: docker
-pinned: false
----
-
 # Generative Handwriting Synthesis System
 
 A production-grade, containerized machine learning application that generates authentic, continuous handwriting strokes from text inputs. This project is a complete **PyTorch software implementation** of the handwriting generation pipeline, developed and engineered by **Amad Mateen**. 
