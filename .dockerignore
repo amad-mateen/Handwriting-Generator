@@ -1,0 +1,17 @@
+# Ignore git directories
+.git
+.gitattributes
+.gitignore
+
+# Ignore python compile caches
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# Ignore local scratch code and output files
+scratch/
+outputs/
+.agents/
+.gemini/
+.ipynb_checkpoints/

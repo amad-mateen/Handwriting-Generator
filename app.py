@@ -1,20 +1,31 @@
 from flask import Flask, send_from_directory, request, jsonify, send_file
 from flask_cors import CORS
 import os
-from main import generate_handwriting
+import logging
+
+from src.config import MODEL_PATH, DATA_DIR, OUTPUT_DIR, DEFAULT_BIAS
+from src.inference import generate_handwriting, get_or_load_resources
+
+# Set up logging configuration
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder='frontend', static_url_path='/')
 CORS(app)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "model", "trainedmodel.pt")
-DATA_PATH = os.path.join(BASE_DIR, "data/")
-OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
-BIAS = 10.0
-
-# Ensure output directory exists
-if not os.path.exists(OUTPUT_DIR):
-    os.makedirs(OUTPUT_DIR)
+# Pre-load/warm-up model weights and vocabulary at server startup
+try:
+    logger.info("Warming up Handwriting Synthesis model and vocabulary in memory...")
+    get_or_load_resources(MODEL_PATH, DATA_DIR)
+    logger.info("Warming up complete. System ready.")
+except Exception as e:
+    logger.error(f"Critical error: Failed to warm-up model weights at startup: {e}")
 
 @app.route('/')
 def serve_index():
@@ -27,32 +38,44 @@ def serve_static(path):
 @app.route('/generate', methods=['POST'])
 def generate():
     try:
-        data = request.get_json()
+        data = request.get_json() or {}
         text = data.get('text', '')
         animate = data.get('animate', False)
+        style_preset = data.get('style_preset', None)  # Extract style preset (integer index or None)
+        
+        # Parse bias argument from request, falling back to default configuration bias
+        try:
+            bias = float(data.get('bias', DEFAULT_BIAS))
+        except (ValueError, TypeError):
+            return jsonify({'error': 'Invalid bias parameter value. Bias must be a float.'}), 400
 
         if not text:
-            return jsonify({'error': 'No text provided'}), 400
+            return jsonify({'error': 'No text parameter provided in request.'}), 400
 
-        # Generate handwriting and get the output path
+        logger.info(f"Received generation request: text='{text}', animate={animate}, bias={bias}, style_preset={style_preset}")
+
+        # Perform handwriting synthesis and get output path
         output_path = generate_handwriting(
             input_text=text,
             model_path=MODEL_PATH,
-            data_path=DATA_PATH,
+            data_path=DATA_DIR,
             output_dir=OUTPUT_DIR,
             animate=animate,
-            bias=BIAS
+            bias=bias,
+            style_preset=style_preset
         )
 
-        # Extract the filename from the output path
-        filename = os.path.basename(output_path)
+        mimetype = 'image/' + ('gif' if animate else 'png')
+        return send_file(output_path, mimetype=mimetype)
 
-        # Serve the generated file
-        return send_file(output_path, mimetype='image/' + ('gif' if animate else 'png'))
-
+    except ValueError as val_err:
+        # Catch validation failures (e.g. out-of-vocab characters) and return a 400 Bad Request
+        logger.warning(f"Request validation failed: {val_err}")
+        return jsonify({'error': str(val_err)}), 400
+        
     except Exception as e:
-        print(f"Error in /generate: {str(e)}")  # Log the error to the terminal
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Unhandled error in generation flow: {str(e)}", exc_info=True)
+        return jsonify({'error': 'Internal server error processing handwriting generation.'}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7860)

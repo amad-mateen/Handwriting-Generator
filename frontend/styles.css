@@ -1,181 +1,446 @@
-/* Custom styles for the Handwriting Synthesis App */
+/* Base stylesheet reset and system variables */
+:root {
+    --bg-main: #060608;
+    --card-bg: #141416;
+    --p5-red: #e60012;
+    --p5-red-hover: #ff1a2b;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Staatliches', sans-serif;
+    --shadow-p5: 8px 8px 0px #e60012;
+}
 
-/* Reset default margins and set font */
 body {
     margin: 0;
-    font-family: "Roboto", sans-serif;
-    background-color: #1f2937; /* Dark gray background for the body */
-    color: #e5e7eb; /* Light gray text for contrast */
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    overflow: auto; /* Allow scrolling if content overflows */
+    overflow-y: auto;
+    /* Stylized graphic sashes in the background mimicking Persona 5 dynamic layouts */
+    background-image: 
+        linear-gradient(115deg, transparent 60%, rgba(230, 0, 18, 0.08) 60.1%, rgba(230, 0, 18, 0.08) 75%, transparent 75.1%),
+        linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.02) 40.1%, rgba(255, 255, 255, 0.02) 55%, transparent 55.1%);
 }
 
-/* Style the main container */
-.container {
-    background-color: #374151; /* Dark gray primary color for the container */
-    border: 2px solid #d1d5db; /* Neutral light gray border */
-    padding: 2.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    width: 100%;
-    max-width: 600px; /* Limit the width for readability */
-    margin: 2rem;
-    box-sizing: border-box;
+/* Skewed Persona 5 Theme Main Container */
+.container.p5-theme {
+    background-color: var(--card-bg);
+    border: 4px solid #ffffff;
+    border-radius: 0px; /* Sharp cuts, no rounded corners */
+    padding: 3rem;
+    box-shadow: var(--shadow-p5);
+    width: 90%;
+    max-width: 650px;
+    margin: 2rem auto;
+    position: relative;
+    transform: skewX(-2deg) rotate(-0.5deg);
+    transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Style the title */
-.title {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: #f3f4f6; /* Light gray for the title */
-    margin-bottom: 2rem;
+/* Header Styling */
+.header.p5-header {
     text-align: center;
-    letter-spacing: 0.025em;
+    margin-bottom: 2.5rem;
 }
 
-/* Style the input label */
-.input-label {
+/* Title block: stark text on a skewed red banner */
+.title-banner {
+    background-color: var(--p5-red);
+    padding: 0.75rem 1.5rem;
+    border: 3px solid #ffffff;
+    display: inline-block;
+    transform: skewX(-8deg) rotate(-1.5deg);
+    margin-bottom: 1rem;
+    box-shadow: 4px 4px 0px #000000;
+}
+
+.title-banner .title {
+    font-family: var(--font-display);
+    font-size: 2.75rem;
+    font-weight: normal;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 0px #000000;
+}
+
+.subtitle {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    margin: 0.5rem 0 0 0;
+}
+
+/* Stylized Form Inputs */
+.form-group {
+    margin-bottom: 1.75rem;
+    /* Counteract container skew to keep contents readable */
+    transform: skewX(2deg);
+}
+
+.input-label.p5-label {
     display: block;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #d1d5db; /* Neutral light gray for labels */
-    margin-bottom: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
 }
 
-/* Style the text input */
-.text-input {
+/* Target Input: High-contrast black text on clean white slab */
+.text-input.p5-input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #d1d5db; /* Neutral border */
-    border-radius: 0.5rem;
+    box-sizing: border-box;
+    padding: 0.875rem 1rem;
+    border: 3px solid #000000;
+    border-radius: 0px;
+    font-family: var(--font-sans);
+    font-weight: 600;
     font-size: 1rem;
-    background-color: #4b5563; /* Slightly lighter dark gray for input background */
-    color: #f3f4f6; /* Light gray text */
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+    color: #000000;
+    transform: skewX(-4deg);
+    transition: all 0.15s ease;
 }
 
-.text-input:focus {
+.text-input.p5-input:focus {
     outline: none;
-    border-color: #60a5fa; /* Light blue for focus state */
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
+    border-color: var(--p5-red);
+    box-shadow: 5px 5px 0px var(--p5-red);
 }
 
-.text-input::placeholder {
-    color: #9ca3af; /* Light gray placeholder text */
+.text-input.p5-input::placeholder {
+    color: #71717a;
+    font-weight: normal;
 }
 
-/* Style the checkbox container */
-.checkbox-container {
+/* Warnings and Errors: Bold black text on warning yellow/red panels */
+.validation-warning.p5-warning {
+    margin-top: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0px;
+    background-color: #fef08a; /* Bright yellow */
+    border: 3px solid #000000;
+    color: #000000;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transform: skewX(-2deg);
+    box-shadow: 4px 4px 0px var(--p5-red);
+}
+
+/* Dropdown Selector */
+.style-select.p5-select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.875rem 1rem;
+    border: 3px solid #ffffff;
+    border-radius: 0px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.95rem;
+    background-color: #000000;
+    color: #ffffff;
+    transform: skewX(-4deg);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.style-select.p5-select:focus {
+    outline: none;
+    border-color: var(--p5-red);
+    box-shadow: 5px 5px 0px var(--p5-red);
+}
+
+.style-select.p5-select option {
+    background-color: #141416;
+    color: #ffffff;
+}
+
+/* Settings Box */
+.settings-row.p5-settings {
+    margin-bottom: 2rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-left: 6px solid var(--p5-red);
+    padding: 1.5rem;
+    border-radius: 0px;
+    transform: skewX(2deg);
+}
+
+.slider-group.p5-slider-group {
+    width: 100%;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.p5-bias-val {
+    background-color: var(--p5-red);
+    color: #ffffff;
+    padding: 0.15rem 0.6rem;
+    font-family: monospace;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    border: 1px solid #ffffff;
+}
+
+.p5-desc {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: var(--p5-red);
+}
+
+.bias-slider.p5-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 0px;
+    background: #27272a;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    outline: none;
+    margin: 0.5rem 0;
+}
+
+.bias-slider.p5-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 0px; /* Square thumb */
+    background: #ffffff;
+    border: 2px solid var(--p5-red);
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #000000;
+    transition: transform 0.1s ease;
+}
+
+.bias-slider.p5-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background: var(--p5-red);
+    border-color: #ffffff;
+}
+
+/* Custom Checkbox Toggle */
+.checkbox-container.p5-checkbox-container {
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
+    cursor: pointer;
+    transform: skewX(2deg);
 }
 
-/* Style the checkbox */
-.checkbox {
+.checkbox.p5-checkbox {
     width: 1.25rem;
     height: 1.25rem;
-    accent-color: #60a5fa; /* Light blue for checkbox */
+    accent-color: var(--p5-red);
     margin-right: 0.75rem;
+    border: 2px solid #ffffff;
     cursor: pointer;
 }
 
-/* Style the checkbox label */
-.checkbox-label {
-    font-size: 0.875rem;
-    color: #d1d5db; /* Neutral light gray for label */
+.checkbox-label.p5-checkbox-label {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    user-select: none;
     cursor: pointer;
+    transition: color 0.15s ease;
 }
 
-/* Style the generate button */
-.generate-button {
+.checkbox-label.p5-checkbox-label:hover {
+    color: #ffffff;
+}
+
+/* Skewed Red Primary Action Button */
+.generate-button.p5-btn {
     width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); /* Gradient for button */
-    color: #1f2937; /* Dark gray text for contrast */
-    font-weight: 600;
-    font-size: 1rem;
-    border-radius: 0.5rem;
-    border: none;
+    padding: 1.15rem;
+    background: var(--p5-red);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    border-radius: 0px;
+    border: 3px solid #ffffff;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
+    box-shadow: 5px 5px 0px #000000;
+    transform: skewX(-6deg) rotate(-0.5deg);
+    transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.generate-button:hover:not(:disabled) {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Darker gradient on hover */
-    transform: translateY(-1px);
+.generate-button.p5-btn:hover:not(:disabled) {
+    background: #ffffff;
+    color: var(--p5-red);
+    border-color: var(--p5-red);
+    box-shadow: 5px 5px 0px var(--p5-red);
+    transform: skewX(-6deg) rotate(-0.5deg) scale(1.02);
 }
 
-.generate-button:disabled {
-    background: #6b7280; /* Grayed out when disabled */
+.generate-button.p5-btn:active:not(:disabled) {
+    transform: skewX(-6deg) rotate(-0.5deg) translate(2px, 2px);
+    box-shadow: 3px 3px 0px #000000;
+}
+
+.generate-button.p5-btn:disabled {
+    background: #27272a;
+    color: #71717a;
+    border-color: #52525b;
+    box-shadow: none;
     cursor: not-allowed;
 }
 
-/* Style the error message */
-.error-message {
+/* Spinner Loader */
+.spinner.p5-spinner {
+    border-color: rgba(255, 255, 255, 0.2);
+    border-top-color: var(--p5-red);
+}
+
+/* Errors */
+.error-message.p5-error {
     margin-top: 1.5rem;
-    padding: 1rem;
-    background-color: #7f1d1d; /* Dark red for error background */
-    color: #fecaca; /* Light red for error text */
-    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--p5-red);
+    border: 3px solid #ffffff;
+    color: #ffffff;
+    border-radius: 0px;
+    font-family: var(--font-sans);
+    font-weight: 700;
     font-size: 0.875rem;
-    border: 1px solid #b91c1c; /* Red border for error */
+    transform: skewX(-2deg);
+    box-shadow: 4px 4px 0px #000000;
 }
 
-/* Style the result container */
-.result-container {
-    margin-top: 2rem;
+/* Dynamic Result Visualizer Card */
+.result-container.p5-result {
+    margin-top: 3rem;
+    border-top: 3px dashed var(--p5-red);
+    padding-top: 2rem;
+    transform: skewX(2deg);
 }
 
-/* Style the result title */
-.result-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #f3f4f6; /* Light gray for result title */
+.result-header.p5-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.result-title.p5-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+/* Get File Button: Stark offset block */
+.download-button.p5-download-btn {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.05em;
+    background: #000000;
+    border: 3px solid #ffffff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 0px;
+    color: #ffffff;
+    text-decoration: none;
+    transform: skewX(-5deg);
+    transition: all 0.15s ease;
+    box-shadow: 3px 3px 0px var(--p5-red);
+}
+
+.download-button.p5-download-btn:hover {
+    background: var(--p5-red);
+    border-color: #ffffff;
+    box-shadow: 3px 3px 0px #000000;
+}
+
+/* Output Drawing Area */
+.image-wrapper.p5-canvas {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border: 4px solid #000000;
+    border-radius: 0px;
+    box-shadow: 6px 6px 0px #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1rem;
 }
 
-/* Style the generated image */
 .generated-image {
     width: 100%;
-    max-height: 400px; /* Limit height to prevent overflow */
-    object-fit: contain; /* Ensure the image scales properly */
-    border-radius: 0.5rem;
-    border: 1px solid #d1d5db; /* Neutral border */
-    background-color: #f3f4f6; /* Light gray background for the image area */
+    max-height: 380px;
+    object-fit: contain;
 }
 
-/* Style the footer */
-.footer {
-    margin-top: 2rem;
+/* Styled Zine-like Footer */
+.footer.p5-footer {
+    margin-top: 3.5rem;
+    border-top: 3px solid #ffffff;
+    padding-top: 1.5rem;
     text-align: center;
-    font-size: 0.875rem;
-    color: #9ca3af; /* Lighter gray for footer text */
-    border-top: 1px solid #d1d5db; /* Neutral border for separation */
-    padding-top: 1rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    transform: skewX(2deg);
 }
 
-/* Responsive adjustments for 1920x1080 resolution */
-@media (min-width: 1920px) {
-    .container {
-        max-width: 700px; /* Slightly larger container for larger screens */
-        padding: 3rem;
-    }
+.footer.p5-footer p {
+    margin: 0.25rem 0;
+}
 
-    .title {
-        font-size: 2.5rem;
-    }
+/* Snappy page slide animation */
+.animate-fade-in {
+    animation: slideIn 0.3s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
 
-    .text-input,
-    .generate-button {
-        font-size: 1.125rem;
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px) skewX(2deg);
     }
+    to {
+        opacity: 1;
+        transform: translateY(0) skewX(2deg);
+    }
+}
 
-    .checkbox,
-    .checkbox-label {
-        transform: scale(1.1); /* Slightly larger checkbox for better visibility */
+/* Responsive adjust */
+@media (max-width: 600px) {
+    .container.p5-theme {
+        padding: 1.5rem;
+        margin: 1rem auto;
+        transform: none; /* remove skew on small mobile */
+    }
+    .form-group, .settings-row.p5-settings, .checkbox-container.p5-checkbox-container, .result-container.p5-result, .footer.p5-footer {
+        transform: none;
+    }
+    .title-banner {
+        transform: skewX(-5deg);
+    }
+    .title-banner .title {
+        font-size: 2rem;
+    }
+    .result-header.p5-result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
     }
 }

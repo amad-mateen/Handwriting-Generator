@@ -1,0 +1,31 @@
+# Python bytecode and run caches
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env
+
+# Generated application output files
+outputs/
+*.png
+*.gif
+
+# IDE configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Local system files
+.DS_Store
+Thumbs.db
