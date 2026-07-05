@@ -1,14 +1,14 @@
 /* Base stylesheet reset and system variables */
 :root {
-    --bg-main: #060608;
-    --card-bg: #141416;
-    --p5-red: #e60012;
-    --p5-red-hover: #ff1a2b;
-    --text-primary: #ffffff;
-    --text-secondary: #a1a1aa;
+    --bg-main: #f5f3ef; /* Soft warm notebook parchment off-white */
+    --card-bg: #ffffff; /* Stark white paper page background */
+    --p5-red: #0f2d59;  /* Deep fountain-pen ink blue */
+    --p5-red-hover: #1d4ed8; /* Lighter royal ink blue */
+    --text-primary: #18181b; /* Crisp dark charcoal for reading */
+    --text-secondary: #52525b; /* Muted gray-zinc for secondary labels */
     --font-sans: 'Inter', sans-serif;
     --font-display: 'Staatliches', sans-serif;
-    --shadow-p5: 8px 8px 0px #e60012;
+    --shadow-p5: 6px 6px 0px var(--p5-red);
 }
 
 body {
@@ -23,16 +23,15 @@ body {
     justify-content: center;
     align-items: center;
     overflow-y: auto;
-    /* Stylized graphic sashes in the background mimicking Persona 5 dynamic layouts */
-    background-image: 
-        linear-gradient(115deg, transparent 60%, rgba(230, 0, 18, 0.08) 60.1%, rgba(230, 0, 18, 0.08) 75%, transparent 75.1%),
-        linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.02) 40.1%, rgba(255, 255, 255, 0.02) 55%, transparent 55.1%);
+    /* Soft dot-grid background texture simulating draft notebook paper */
+    background-image: radial-gradient(rgba(15, 45, 89, 0.08) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
 }
 
-/* Skewed Persona 5 Theme Main Container */
+/* Skewed Persona 5 Style Layout Container (Light Parchment Theme) */
 .container.p5-theme {
     background-color: var(--card-bg);
-    border: 4px solid #ffffff;
+    border: 3px solid #18181b;
     border-radius: 0px; /* Sharp cuts, no rounded corners */
     padding: 3rem;
     box-shadow: var(--shadow-p5);
@@ -50,11 +49,11 @@ body {
     margin-bottom: 2.5rem;
 }
 
-/* Title block: stark text on a skewed red banner */
+/* Title block: stark text on a skewed ink-blue banner */
 .title-banner {
     background-color: var(--p5-red);
     padding: 0.75rem 1.5rem;
-    border: 3px solid #ffffff;
+    border: 3px solid #18181b;
     display: inline-block;
     transform: skewX(-8deg) rotate(-1.5deg);
     margin-bottom: 1rem;
@@ -87,12 +86,16 @@ body {
     transform: skewX(2deg);
 }
 
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
 .input-label.p5-label {
     display: block;
     font-family: var(--font-display);
     font-size: 1.15rem;
     letter-spacing: 0.05em;
-    color: #ffffff;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
@@ -101,13 +104,13 @@ body {
     width: 100%;
     box-sizing: border-box;
     padding: 0.875rem 1rem;
-    border: 3px solid #000000;
+    border: 3px solid #18181b;
     border-radius: 0px;
     font-family: var(--font-sans);
     font-weight: 600;
     font-size: 1rem;
     background-color: #ffffff;
-    color: #000000;
+    color: #18181b;
     transform: skewX(-4deg);
     transition: all 0.15s ease;
 }
@@ -123,14 +126,14 @@ body {
     font-weight: normal;
 }
 
-/* Warnings and Errors: Bold black text on warning yellow/red panels */
+/* Warnings: Bold black text on yellow alert panels */
 .validation-warning.p5-warning {
     margin-top: 0.75rem;
     padding: 0.75rem 1rem;
     border-radius: 0px;
     background-color: #fef08a; /* Bright yellow */
-    border: 3px solid #000000;
-    color: #000000;
+    border: 3px solid #18181b;
+    color: #18181b;
     font-weight: 700;
     font-size: 0.8rem;
     transform: skewX(-2deg);
@@ -142,13 +145,13 @@ body {
     width: 100%;
     box-sizing: border-box;
     padding: 0.875rem 1rem;
-    border: 3px solid #ffffff;
+    border: 3px solid #18181b;
     border-radius: 0px;
     font-family: var(--font-sans);
     font-weight: 600;
     font-size: 0.95rem;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #18181b;
     transform: skewX(-4deg);
     cursor: pointer;
     transition: all 0.15s ease;
@@ -161,15 +164,15 @@ body {
 }
 
 .style-select.p5-select option {
-    background-color: #141416;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #18181b;
 }
 
 /* Settings Box */
 .settings-row.p5-settings {
     margin-bottom: 2rem;
-    background-color: rgba(255, 255, 255, 0.03);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(15, 45, 89, 0.03);
+    border: 2px solid rgba(15, 45, 89, 0.1);
     border-left: 6px solid var(--p5-red);
     padding: 1.5rem;
     border-radius: 0px;
@@ -194,7 +197,7 @@ body {
     font-family: monospace;
     font-weight: bold;
     margin-left: 0.5rem;
-    border: 1px solid #ffffff;
+    border: 1px solid #18181b;
 }
 
 .p5-desc {
@@ -210,8 +213,8 @@ body {
     width: 100%;
     height: 8px;
     border-radius: 0px;
-    background: #27272a;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #e4e4e7; /* Light gray track */
+    border: 1px solid rgba(0, 0, 0, 0.1);
     outline: none;
     margin: 0.5rem 0;
 }
@@ -221,7 +224,7 @@ body {
     appearance: none;
     width: 16px;
     height: 16px;
-    border-radius: 0px; /* Square thumb */
+    border-radius: 0px; /* Square block thumb */
     background: #ffffff;
     border: 2px solid var(--p5-red);
     cursor: pointer;
@@ -249,7 +252,7 @@ body {
     height: 1.25rem;
     accent-color: var(--p5-red);
     margin-right: 0.75rem;
-    border: 2px solid #ffffff;
+    border: 2px solid #18181b;
     cursor: pointer;
 }
 
@@ -264,10 +267,10 @@ body {
 }
 
 .checkbox-label.p5-checkbox-label:hover {
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
-/* Skewed Red Primary Action Button */
+/* Skewed Blue Primary Action Button */
 .generate-button.p5-btn {
     width: 100%;
     padding: 1.15rem;
@@ -277,7 +280,7 @@ body {
     font-size: 1.6rem;
     letter-spacing: 0.05em;
     border-radius: 0px;
-    border: 3px solid #ffffff;
+    border: 3px solid #18181b;
     cursor: pointer;
     box-shadow: 5px 5px 0px #000000;
     transform: skewX(-6deg) rotate(-0.5deg);
@@ -298,26 +301,46 @@ body {
 }
 
 .generate-button.p5-btn:disabled {
-    background: #27272a;
-    color: #71717a;
-    border-color: #52525b;
+    background: #e4e4e7;
+    color: #a1a1aa;
+    border-color: #a1a1aa;
     box-shadow: none;
     cursor: not-allowed;
 }
 
 /* Spinner Loader */
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.spinner {
+    width: 1.15rem;
+    height: 1.15rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
 .spinner.p5-spinner {
     border-color: rgba(255, 255, 255, 0.2);
     border-top-color: var(--p5-red);
 }
 
-/* Errors */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Errors: Softer red backing */
 .error-message.p5-error {
     margin-top: 1.5rem;
     padding: 1rem 1.25rem;
-    background-color: var(--p5-red);
-    border: 3px solid #ffffff;
-    color: #ffffff;
+    background-color: #fee2e2;
+    border: 3px solid #ef4444;
+    color: #991b1b;
     border-radius: 0px;
     font-family: var(--font-sans);
     font-weight: 700;
@@ -353,11 +376,11 @@ body {
     font-family: var(--font-display);
     font-size: 1.15rem;
     letter-spacing: 0.05em;
-    background: #000000;
-    border: 3px solid #ffffff;
+    background: #ffffff;
+    border: 3px solid #18181b;
     padding: 0.4rem 1.2rem;
     border-radius: 0px;
-    color: #ffffff;
+    color: #18181b;
     text-decoration: none;
     transform: skewX(-5deg);
     transition: all 0.15s ease;
@@ -366,17 +389,18 @@ body {
 
 .download-button.p5-download-btn:hover {
     background: var(--p5-red);
-    border-color: #ffffff;
+    border-color: #18181b;
+    color: #ffffff;
     box-shadow: 3px 3px 0px #000000;
 }
 
-/* Output Drawing Area */
+/* Output Drawing Area: White sheet layout */
 .image-wrapper.p5-canvas {
     background-color: #ffffff;
     padding: 1.5rem;
-    border: 4px solid #000000;
+    border: 3px solid #18181b;
     border-radius: 0px;
-    box-shadow: 6px 6px 0px #ffffff;
+    box-shadow: 5px 5px 0px var(--p5-red);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -392,13 +416,13 @@ body {
 /* Styled Zine-like Footer */
 .footer.p5-footer {
     margin-top: 3.5rem;
-    border-top: 3px solid #ffffff;
+    border-top: 3px solid #18181b;
     padding-top: 1.5rem;
     text-align: center;
     font-family: var(--font-display);
     font-size: 1rem;
     letter-spacing: 0.08em;
-    color: var(--text-secondary);
+    color: #71717a;
     transform: skewX(2deg);
 }
 
