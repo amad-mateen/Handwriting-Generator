@@ -23,9 +23,22 @@ body {
     justify-content: center;
     align-items: center;
     overflow-y: auto;
-    /* Soft dot-grid background texture simulating draft notebook paper */
-    background-image: radial-gradient(rgba(15, 45, 89, 0.08) 1.5px, transparent 1.5px);
-    background-size: 24px 24px;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('background.png');
+    background-repeat: repeat;
+    background-size: 350px;
+    opacity: 0.18; /* Subtle watermark sketch overlay */
+    z-index: -1;
+    pointer-events: none;
 }
 
 /* Skewed Persona 5 Style Layout Container (Light Parchment Theme) */
